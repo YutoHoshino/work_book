@@ -7,8 +7,9 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id
-      redirect_to root_path, notice: "You have succusesfully logged in."
+      redirect_to root_path
     else
+      flash.now[:alert] = "パスワードが一致しません"
       render :new
     end
   end
