@@ -1,0 +1,19 @@
+<h1>単語修正</h1>
+
+<%= form_with model: @question, local: true do |f| %>
+
+<div>
+  <%= f.label :question %>
+  <%= f.text_field :question %>
+</div>
+
+<div>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+</div>
+
+<div>
+  <%= f.submit "単語登録"%>
+</div>
+
+<% end %>
