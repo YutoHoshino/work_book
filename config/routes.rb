@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :questions do
     collection do
       get 'edit_select'
+      get 'destroy_select'
     end
   end
 
