@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-  has_many :question_similars
+  has_many :question_similars, dependent: :destroy
   
 
   def self.search(search)
