@@ -1,0 +1,30 @@
+<h1>単語マスタメンテナンス</h1>
+<%= link_to '単語の新規作成', new_question_path %>
+
+<%= form_with url: search_questions_path, method: :get, local: true do |f| %>
+  <%= f.label :search, '検索' %>
+  <%= f.text_field :search %>
+  <%= f.submit 'Search' %>
+<% end %>
+
+<table border="1">
+  <tr>
+    <th>単語</th>
+    <th>修正</th>
+    <th>削除</th>
+  </tr>
+  <% @questions.each do |question| %>
+  <tr>
+      <td><%= link_to "#{question.question}", root_path %></td>
+      <td><%= link_to "修正", edit_question_path(question.id) %></td>
+      <td><%= link_to "削除", "/questions/#{question.id}", method: :delete %></td>
+  </tr>
+  <% end %>
+</table>
+
+
+<div>
+  <%= link_to 'メニューに戻る', root_path %>
+</div>
+
+

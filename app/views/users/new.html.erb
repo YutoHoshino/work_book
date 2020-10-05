@@ -1,6 +1,6 @@
 <h1>ユーザー作成画面</h1>
 <%= render 'layouts/error_messages', model:  @user %>
-<%= form_with model: @user, url: user_path, local: true do |f| %>
+<%= form_with model: @user, local: true do |f| %>
 
   <div class="field">
     <%= f.label :name %>
@@ -22,5 +22,8 @@
   </div>
   <%= link_to "login", login_path %>
 
-
 <% end %>
+
+<div>
+  <%= link_to "戻る", root_path %>
+</div>
