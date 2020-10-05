@@ -19,7 +19,12 @@
       <td><%= link_to "#{question.question}", root_path %></td>
       <td><%= link_to "修正する", edit_question_path(question.id) %></td>
       <td><%= link_to "削除する", "/questions/#{question.id}", method: :delete %></td>
-      <td><%= link_to "#{question.question_similars}", root_path %></td>
+
+      <td><% question.question_similars.each do |similar| %>
+        <%= link_to "#{similar.similar_word}", root_path %>
+      <% end %>
+      </td>
+
   </tr>
   <% end %>
 </table>
