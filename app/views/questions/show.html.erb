@@ -3,7 +3,8 @@
 <h3><%= @question.question %></h3>
 
 <% @question.question_similars.each do |similar|%>
-  <h5><%= similar.similar_word %></h5>
+  <%= similar.similar_word %>
+  <%= link_to "削除する", "/questions/#{@question.id}/question_similars/#{similar.id}",  method: :delete %><br>
 <% end %>
 
 <div>

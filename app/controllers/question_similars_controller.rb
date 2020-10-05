@@ -1,4 +1,5 @@
 class QuestionSimilarsController < ApplicationController
+
   def new
     @similar = QuestionSimilar.new
   end
@@ -11,6 +12,12 @@ class QuestionSimilarsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    question = QuestionSimilar.find(params[:id])
+    question.destroy
+    redirect_to root_path
   end
 
 

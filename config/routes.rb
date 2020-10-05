@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   delete 'logout', to: "sessions#destroy"
 
   resources :questions do
-    resource :question_similars, only:[:new, :create]
+    resources :question_similars, only:[:new, :create, :destroy]
     collection do
       get 'search'
     end
