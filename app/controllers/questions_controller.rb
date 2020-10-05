@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only:[:edit, :update, :destroy]
-  before_action :set_all_question, only:[:edit_select, :destroy_select]
 
   def index
+    @questions = Question.all
   end
 
   def new
@@ -18,9 +18,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def edit_select
-  end
-
   def edit
   end
 
@@ -29,12 +26,13 @@ class QuestionsController < ApplicationController
     redirect_to root_path
   end
 
-  def destory_select
-  end
-
   def destroy
     @question.destroy
     redirect_to root_path
+  end
+
+  def search
+    @questions = Question.search(params[:search])
   end
 
 
@@ -46,10 +44,6 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.find(params[:id])
-  end
-
-  def set_all_question
-    @questions = Question.all
   end
 
 end

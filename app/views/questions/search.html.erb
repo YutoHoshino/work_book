@@ -1,0 +1,15 @@
+<h1>単語検索</h1>
+
+<%= form_with url: search_questions_path, method: :get, local: true do |f| %>
+  <%= f.label :search, '検索' %>
+  <%= f.text_field :search %>
+  <%= f.submit 'Search' %>
+<% end %>
+
+  <% @questions.each do |question| %>
+    <%= link_to "#{question.question}", root_path %>
+  <% end %>
+  
+<div>
+  <%= link_to "戻る", questions_path %>
+</div>
