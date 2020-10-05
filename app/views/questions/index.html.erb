@@ -9,22 +9,14 @@
 
 <table border="1">
   <tr>
-    <th>単語</th>
-    <th>修正</th>
-    <th>削除</th>
-    <th>類義語</th>
+    <th colspan="4">登録単語</th>
   </tr>
   <% @questions.each do |question| %>
   <tr>
-      <td><%= link_to "#{question.question}", root_path %></td>
+      <td><%= link_to "#{question.question}", question_path(question.id) %></td>
       <td><%= link_to "修正する", edit_question_path(question.id) %></td>
       <td><%= link_to "削除する", "/questions/#{question.id}", method: :delete %></td>
-
-      <td><% question.question_similars.each do |similar| %>
-        <%= link_to "#{similar.similar_word}", root_path %>
-      <% end %>
-      </td>
-
+      <td><%= link_to "登録する", new_question_question_similars_path(question) %></td>
   </tr>
   <% end %>
 </table>
