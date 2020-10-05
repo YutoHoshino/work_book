@@ -1,0 +1,11 @@
+<h1>単語の詳細</h1>
+
+<h3><%= @question.question %></h3>
+
+<% @question.question_similars.each do |similar|%>
+  <h5><%= similar.similar_word %></h5>
+<% end %>
+
+<div>
+  <%= link_to "戻る", questions_path %>
+</div>
