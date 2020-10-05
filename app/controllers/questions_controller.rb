@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only:[:edit, :update, :destroy]
 
   def index
-    @questions = Question.all
+    @questions = Question.all.includes(:question_similars)
   end
 
   def new

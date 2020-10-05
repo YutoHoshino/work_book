@@ -12,12 +12,14 @@
     <th>単語</th>
     <th>修正</th>
     <th>削除</th>
+    <th>類義語</th>
   </tr>
   <% @questions.each do |question| %>
   <tr>
       <td><%= link_to "#{question.question}", root_path %></td>
-      <td><%= link_to "修正", edit_question_path(question.id) %></td>
-      <td><%= link_to "削除", "/questions/#{question.id}", method: :delete %></td>
+      <td><%= link_to "修正する", edit_question_path(question.id) %></td>
+      <td><%= link_to "削除する", "/questions/#{question.id}", method: :delete %></td>
+      <td><%= link_to "#{question.question_similars}", root_path %></td>
   </tr>
   <% end %>
 </table>
