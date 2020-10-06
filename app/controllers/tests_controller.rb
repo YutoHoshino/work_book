@@ -10,18 +10,19 @@ class TestsController < ApplicationController
   @descriptions = @description.sample(3)
 
   @question = @description[1]
-
-  
-
   end
 
   def create
-    if (params[:correct_question]).to_i ==  (params[:question]).delete("{:value=>}").to_i
-      redirect_to root_path
+    if @answer = (params[:correct_question]).to_i ==  (params[:question]).delete("{:value=>}").to_i
+      respond_to do |format|
+        format.html { redirect_to new_test_path}
+        format.json { render json: @answer}
+      end
     else
-      redirect_to new_test_path
+      respond_to do |format|
+        format.html { redirect_to new_test_path }
+        format.json { render json: @answer}
+      end
     end
   end
-
-
 end

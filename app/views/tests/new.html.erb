@@ -1,10 +1,11 @@
+<%= javascript_pack_tag 'question' %>
 <h1>単語帳</h1>
 
-<%= form_with url: tests_path, local: true do |f| %>
+<%= form_with url: tests_path, local: true, class:"js-form" do |f| %>
 
 <h3>問題</h3>
   <%= @question.question %>
-  <%= f.hidden_field :correct_question, value: @question.id %>
+  <%= f.hidden_field :correct_question, value: @question.id, class: "hidden"%>
 
 <h6>[類義語]</h6>
   <% @question.question_similars.each do |similar|%>
@@ -14,10 +15,10 @@
 <h3>解答</h3>
 
   <% @descriptions.each do |descript|%>
-  <%= f.radio_button :question, value: descript.id %>
+  <%= f.radio_button :question, value: descript.id, class: 'radio_answer'%>
   <%= descript.description %><br>
   <% end %>
 
-<%= f.submit "送信" %>
+<%= f.submit "送信", class:'form__submit js-submit' %>
 <% end %>
 
