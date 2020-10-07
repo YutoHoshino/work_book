@@ -1,0 +1,36 @@
+<h1>Ranking</h1>
+
+  <% if session[:correct_answer].present? or session[:answer_rate].present?%>
+    <p>
+    お疲れ様でした!<br>
+    あなたの成績は、5問中<%= session[:correct_answer]%>問正解 
+    正解率<%= session[:answer_rate] %>%でした
+    </p>
+  <% end %>
+
+<table class="table">
+  <tr>
+    <th scope="col">順位</th>
+    <th scope="col">名前</th>
+    <th scope="col">正解率</th>
+  </tr>
+  <% @rank.each_with_index do |rank, index|%>
+    <tr>
+      <% if rank.highest_rate.present? %>
+    
+        <th class="<%= "current" if current_user == rank %>" scope="row"><%= index+1 %>位</th>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
+
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<div>
+  <%= link_to "メインメニューもどる", root_path %>
+</div>
+
+
+
+

@@ -14,6 +14,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tests, only:[:new, :create]
+  resources :tests, only:[:new, :create, :update] do
+    collection do
+      get 'rank'
+    end
+  end 
+  
 
 end
