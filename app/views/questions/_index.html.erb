@@ -1,0 +1,29 @@
+
+<%= form_with url: search_questions_path, method: :get, local: true, class:"input-group" do |f| %>
+  <%= f.text_field :search, placeholder: "検索" %>
+  <%= f.submit'Search' %>
+<% end %>
+
+<div>
+  <%= link_to '単語の新規作成', new_question_path %>
+</div>
+
+
+<table class="table">
+  <tr>
+    <th scope="col">登録単語</th>
+    <th scope="col">単語の説明</th>
+    <th scope="col">修正</th>
+    <th scope="col">削除</th>
+    <th scope="col">類義語を追加</th>
+  </tr>
+  <% @questions.each do |question| %>
+  <tr>
+      <th scope="row"><%= link_to "#{question.question}", question_path(question.id) %></th>
+      <td><%= link_to "#{question.description}", question_path(question.id) %></td>
+      <td><%= link_to "修正する", edit_question_path(question.id) %></td>
+      <td><%= link_to "削除する", "/questions/#{question.id}", method: :delete %></td>
+      <td><%= link_to "類義語を追加", new_question_question_similar_path(question.id) %></td>
+  </tr>
+  <% end %>
+</table>
