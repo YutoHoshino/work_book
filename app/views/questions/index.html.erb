@@ -1,24 +1,26 @@
 <h1>単語マスタメンテナンス</h1>
 
-<%= form_with url: search_questions_path, method: :get, local: true do |f| %>
+<%= form_with url: search_questions_path, method: :get, local: true, class:"input-group" do |f| %>
   <%= f.text_field :search, placeholder: "検索" %>
-  <%= f.submit 'Search' %>
+  <%= f.submit'Search' %>
 <% end %>
 
-<%= link_to '単語の新規作成', new_question_path %>
+<div>
+  <%= link_to '単語の新規作成', new_question_path %>
+</div>
 
 
-<table border="1">
+<table class="table">
   <tr>
-    <th>登録単語</th>
-    <th>単語の説明</th>
-    <th>修正</th>
-    <th>削除</th>
-    <th>類義語を追加</th>
+    <th scope="col">登録単語</th>
+    <th scope="col">単語の説明</th>
+    <th scope="col">修正</th>
+    <th scope="col">削除</th>
+    <th scope="col">類義語を追加</th>
   </tr>
   <% @questions.each do |question| %>
   <tr>
-      <td><%= link_to "#{question.question}", question_path(question.id) %></td>
+      <th scope="row"><%= link_to "#{question.question}", question_path(question.id) %></th>
       <td><%= link_to "#{question.description}", question_path(question.id) %></td>
       <td><%= link_to "修正する", edit_question_path(question.id) %></td>
       <td><%= link_to "削除する", "/questions/#{question.id}", method: :delete %></td>
