@@ -1,26 +1,29 @@
 <h1>Ranking</h1>
 
-  <% if session[:correct_answer].present?%>
-  <p>
-  お疲れ様でした!<br>
-  あなたの成績は、5問中<%= session[:correct_answer]%>問正解 
-  正解率<%= session[:answer_rate] %>%でした
-  </p>
+  <% if session[:correct_answer].present? or session[:answer_rate].present?%>
+    <p>
+    お疲れ様でした!<br>
+    あなたの成績は、5問中<%= session[:correct_answer]%>問正解 
+    正解率<%= session[:answer_rate] %>%でした
+    </p>
   <% end %>
 
-<table>
+<table class="table">
   <tr>
-    <th>順位</th>
-    <th>名前</th>
-    <th>正解率</th>
+    <th scope="col">順位</th>
+    <th scope="col">名前</th>
+    <th scope="col">正解率</th>
   </tr>
   <% @rank.each_with_index do |rank, index|%>
-  <tr>
+    <tr>
+      <% if rank.highest_rate.present? %>
+    
+        <th class="<%= "current" if current_user == rank %>" scope="row"><%= index+1 %>位</th>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
 
-    <td><%= index+1 %>位</td>
-    <td><%= rank.name %></td>
-    <td><%= rank.highest_rate %>%</td>
-  </tr>
+      <% end %>
+    </tr>
   <% end %>
 </table>
 

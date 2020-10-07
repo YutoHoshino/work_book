@@ -72,7 +72,7 @@ class TestsController < ApplicationController
   end
 
   def rank
-    @rank = User.order("highest_rate DESC")
+    @rank = User.order(highest_rate: "DESC")
   end
 
 end
