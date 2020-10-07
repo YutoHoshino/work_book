@@ -4,7 +4,7 @@
   <p>
   お疲れ様でした!<br>
   あなたの成績は、5問中<%= session[:correct_answer]%>問正解 
-  正解率<%= session[:answer_rate]%>%でした
+  正解率<%= session[:answer_rate] %>%でした
   </p>
   <% end %>
 
@@ -16,11 +16,18 @@
   </tr>
   <% @rank.each_with_index do |rank, index|%>
   <tr>
+
     <td><%= index+1 %>位</td>
     <td><%= rank.name %></td>
     <td><%= rank.highest_rate %>%</td>
   </tr>
   <% end %>
 </table>
+
+<div>
+  <%= link_to "メインメニューもどる", root_path %>
+</div>
+
+
 
 

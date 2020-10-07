@@ -55,11 +55,12 @@ class TestsController < ApplicationController
 
       # 正答率
       session[:answer_rate] = session[:correct_answer] * 100 / 5
-      
+      rate = session[:answer_rate]
+      highest = current_user.highest_rate
       
       # ハイスコア更新
-      if current_user.highest_rate < session[:answer_rate]
-        current_user.update_attribute(:highest_rate, session[:answer_rate])
+      if highest.nil? or highest < rate  
+        current_user.update_attribute(:highest_rate, rate)
       end
 
       redirect_to rank_tests_path
