@@ -29,15 +29,21 @@ class TestsController < ApplicationController
     # 問題ページを遷移することに+1
     session[:answer_rate] +=1
 
-
-  # 答え合わせの条件分岐
-    if params_question == params_correct
-      session[:answer_check] = '正解'
-      session[:correct_answer] +=1
+    if session[:answer_rate] < 10
+      # 答え合わせの条件分岐
+      if params_question == params_correct
+        session[:answer_check] = '正解'
+        session[:correct_answer] +=1
+      else
+        session[:answer_check] = '不正解'
+        session[:incorrect_answer] +=1
+      end
     else
-      session[:answer_check] = '不正解'
-      session[:incorrect_answer] +=1
+      redirect_to root_path
     end
+
+  
+
 
   end
 end
