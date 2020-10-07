@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     end
   end
 
-  
-
+  resources :tests, only:[:new, :create]
 
 end

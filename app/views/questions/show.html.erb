@@ -1,6 +1,7 @@
 <h1>単語の詳細</h1>
 
 <h3><%= @question.question %></h3>
+<p><%= @question.description %></p>
 
 <% @question.question_similars.each do |similar|%>
   <%= similar.similar_word %>
