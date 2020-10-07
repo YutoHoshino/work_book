@@ -14,14 +14,26 @@
     <th scope="col">名前</th>
     <th scope="col">正解率</th>
   </tr>
-  <% @rank.each_with_index do |rank, index|%>
+    <% lastRank = 0%>
+    <% j = 1 %>
+  <% @rank.each.with_index(1) do |rank, i|%>
     <tr>
       <% if rank.highest_rate.present? %>
     
-        <th class="<%= "current" if current_user == rank %>" scope="row"><%= index+1 %>位</th>
-        <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
-        <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
-
+        <% if i == 1 %>
+          <th class="<%= "current" if current_user == rank %>" scope="row"><%= j %>位</th>
+          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
+          <td class="<%= "current" if current_user == rank %>"><%= lastRank= rank.highest_rate %>%</td>
+        <% elsif rank.highest_rate !=  lastRank %>
+          <% j = i %>
+          <th class="<%= "current" if current_user == rank %>" scope="row"><%= j %>位</th>
+          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
+          <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
+        <% else %>
+          <th class="<%= "current" if current_user == rank %>" scope="row"><%= j %>位</th>
+          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
+          <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
+        <% end %>
       <% end %>
     </tr>
   <% end %>
