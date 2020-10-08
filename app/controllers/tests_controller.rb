@@ -29,16 +29,20 @@ class TestsController < ApplicationController
 
     # 一度出たIDを出なくする
     @questions = Question.where.not(id: session[:array])
+    puts @questions.count
     
-    # 一度出たID以外のIDを１つ取得 ( 問題 )
-    @question = @questions.sample
     
-    # 上のID以外の２つを取得
-    description = Question.where.not(id: @question.id)
-    descriptions = description.sample(2)
-    
-    # ３択のIDを取得 ( 解答 )
-    @description = descriptions << @question
+    if @questions.count > 0
+      # 一度出たID以外のIDを１つ取得 ( 問題 )
+      @question = @questions.sample()
+
+      # 上のID以外の２つを取得
+      description = Question.where.not(id: @question.id)
+      descriptions = description.sample(2)
+      
+      # ３択のIDを取得 ( 解答 )
+      @description = descriptions << @question
+    end
 
 
     # 問題ページを遷移することに+1
