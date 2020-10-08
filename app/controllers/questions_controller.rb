@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    @question.question_similars.new
   end
 
   def create
@@ -42,7 +43,7 @@ class QuestionsController < ApplicationController
   private
 
   def params_question
-    params.require(:question).permit(:question, :description)
+    params.require(:question).permit(:question, :description, question_similars_attributes: [:similar_word])
   end
 
   def set_question
