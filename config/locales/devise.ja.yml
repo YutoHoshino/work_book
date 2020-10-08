@@ -26,6 +26,10 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+      question:
+        question: 単語
+      question_similars:
+        similar_word: 類義語
     models:
       user: ユーザ
   devise:
