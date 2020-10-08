@@ -10,9 +10,18 @@
   <%= f.text_area :description, class:"form-control" %>
 </div>
 
+<div class="form-group>
+  <%= f.fields_for :question_similars do |i| %>
+    <%= i.label :類義語の登録 %><br>
+    <%= i.text_field :similar_word, class:"form-control" %><br>
+  <% end %>
+</div>
+
+
 <div>
   <%= f.submit "単語登録", class:"btn btn-primary"%>
 </div>
+
 
 <% end %>
 

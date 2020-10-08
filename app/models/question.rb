@@ -1,5 +1,6 @@
 class Question < ApplicationRecord
-  has_many :question_similars, dependent: :destroy
+  has_many :question_similars
+  accepts_nested_attributes_for :question_similars, allow_destroy: true
   
 
   def self.search(search)
