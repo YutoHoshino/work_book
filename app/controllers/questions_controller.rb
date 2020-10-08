@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
 
   def search
     @questions = Question.search(params[:search])
-    if @questions.present?
+    if @questions.blank?
       flash.now[:alert] = 'キーワードを入力してください'
       render :index
     end

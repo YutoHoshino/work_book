@@ -6,8 +6,8 @@ class TestsController < ApplicationController
     @description = [@questions[0],@questions[1],@questions[2]]
     @question = @description[1]
     
-    if @questions.count < 3 
-      flash.now[:alert] = '単語を３つ以上登録してください'
+    if @questions.count < 5
+      flash.now[:alert] = '単語を5つ以上登録してください'
       render template: "homes/index"
     end
     
