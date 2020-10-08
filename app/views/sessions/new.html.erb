@@ -1,18 +1,23 @@
-<h1>GDJ単語帳 LOGIN</h1>
+<h3>GDJ単語帳 LOGIN</h3>
 
 <%= form_with url: login_path, local: true do |f| %>
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+
+  <div class="form-group">
+    <%= f.label :名前 %>
+    <%= f.text_field :name, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+  <div class="form-group">
+    <%= f.label :パスワード %>
+    <%= f.password_field :password, class:"form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.submit "ログイン", class:"btn btn-primary"%>
+  </div>
+
+  <div class="form-group">
+  <%= link_to "新規作成ページ", new_users_path %>
   <div>
-    <%= f.submit "Login" %>
-  </div>
-  <%= link_to "sign up", new_users_path %>
+
 <% end %>

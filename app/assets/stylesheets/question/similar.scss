@@ -1,0 +1,12 @@
+// 追加ボタン
+.add-to {
+  color: #fff;
+  width: 100px;
+  text-align: center;
+  background: rgb(218, 99, 52);
+  font-style: bold;
+  border-radius: 5px;
+  &:hover {
+    cursor : pointer;
+  }
+}
