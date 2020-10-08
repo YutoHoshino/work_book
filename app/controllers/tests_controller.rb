@@ -1,9 +1,9 @@
 class TestsController < ApplicationController
   def new
     # 問題の変数
-    @questions = Question.all.sample(11)
+    session[:array] = []
+    @questions = Question.all.sample(100)
     @description = [@questions[0],@questions[1],@questions[2]]
-    @descriptions = @description.sample(3)
     @question = @description[1]
     
     if @questions.count < 3 
@@ -20,16 +20,25 @@ class TestsController < ApplicationController
   end
 
   def create
-    # 問題の変数
-    @questions = Question.all.sample(11)
-    @description = [@questions[0],@questions[1],@questions[2]]
-    @descriptions = @description.sample(3)
-    @question = @description[1]
-
-
     # 問題のIDと解答のID(params)
     params_correct = (params[:correct_question]).delete("{:value=>}").to_i
     params_question = (params[:question]).delete("{:value=>}").to_i
+
+    # session配列にIDの番号を入れる
+    session[:array] << params_correct
+
+    # 一度出たIDを出なくする
+    @questions = Question.where.not(id: session[:array])
+    
+    # 一度出たID以外のIDを１つ取得 ( 問題 )
+    @question = @questions.sample
+    
+    # 上のID以外の２つを取得
+    description = Question.where.not(id: @question.id)
+    descriptions = description.sample(2)
+    
+    # ３択のIDを取得 ( 解答 )
+    @description = descriptions << @question
 
 
     # 問題ページを遷移することに+1
