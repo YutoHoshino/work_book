@@ -8,7 +8,7 @@ class QuestionSimilarsController < ApplicationController
     @similar = QuestionSimilar.new(params_question_similar)
 
     if @similar.save
-      redirect_to root_path
+      redirect_to edit_question_path(@similar.question)
     else
       render :new
     end

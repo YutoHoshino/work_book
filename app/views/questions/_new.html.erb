@@ -14,9 +14,6 @@
   <%= f.label :類義語の登録 %>
   <p class="add-to" id="similar_box">追加<p>
   <%= f.fields_for :question_similars do |i| %>
-    <div data-index="<%= i.index %>" class="js-field_group">
-      <%= i.text_field :similar_word, class:"form-control js_file" %><br>
-    </div>
   <% end %>
 </div>
 

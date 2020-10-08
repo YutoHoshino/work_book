@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question.update(params_question)
+    @question.update(params_question_update)
     redirect_to root_path
   end
 
@@ -44,6 +44,10 @@ class QuestionsController < ApplicationController
 
   def params_question
     params.require(:question).permit(:question, :description, question_similars_attributes: [:similar_word])
+  end
+
+  def params_question_update
+    params.require(:question).permit(:question, :description, question_similars_attributes: [:similar_word, :_destroy, :id])
   end
 
   def set_question

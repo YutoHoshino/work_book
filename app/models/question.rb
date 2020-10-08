@@ -2,6 +2,7 @@ class Question < ApplicationRecord
   has_many :question_similars, dependent: :destroy
   accepts_nested_attributes_for :question_similars, allow_destroy: true
   
+  validates :question, presence: true
 
   def self.search(search)
     if search
@@ -10,4 +11,5 @@ class Question < ApplicationRecord
       Question.all
     end
   end
+  
 end

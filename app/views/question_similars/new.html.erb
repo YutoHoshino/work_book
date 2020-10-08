@@ -1,18 +1,18 @@
-<h1>類義語追加</h1>
+<h3>類義語追加</h3>
 
 <%= form_with model: @similar, url: question_question_similars_path, local: true do |f| %>
 
-<div>
-  <%= f.label :similar_word %>
-  <%= f.text_field :similar_word %>
+<div class="form-group">
+  <%= f.label :類義語登録 %><br>
+  <%= f.text_field :similar_word, class:"form-control" %>
 </div>
 
-<div>
-  <%= f.submit "類義語登録"%>
+<div class="form-group">
+  <%= f.submit "類義語登録", class:"btn btn-primary"%>
 </div>
 
 <% end %>
 
-<div>
+<div class="form-group">
   <%= link_to "戻る", questions_path %>
 </div>
