@@ -1,9 +1,10 @@
+<%= render 'layouts/error_messages', model: @user %>
+
 <h3>ユーザー作成画面</h3>
-<%= render 'layouts/error_messages', model:  @user %>
 <%= form_with model: @user, local: true do |f| %>
 
   <div class="form-group">
-    <%= f.label :名前 %>
+    <%= f.label :name %>
     <%= f.text_field :name, class:"form-control" %>
   </div>
 

@@ -1,9 +1,8 @@
 <h2>Main Menu</h2>
 <p>下記のメニューよりクリックしてください。</p>
 
-<% if @question > 3 %>
-  <%= link_to '単語帳', new_test_path %><br>
-<% end %>
+
+<%= link_to '単語帳', new_test_path %><br>
 <%= link_to 'ランキング', rank_tests_path %><br>
 <%= link_to '単語帳マスタメンテナンス', questions_path %><br>
 <% if current_user %>

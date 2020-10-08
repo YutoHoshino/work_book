@@ -1,18 +1,22 @@
 class TestsController < ApplicationController
   def new
-
     # 問題の変数
     @questions = Question.all.sample(11)
     @description = [@questions[0],@questions[1],@questions[2]]
     @descriptions = @description.sample(3)
     @question = @description[1]
-
+    
+    if @questions.count < 3 
+      flash.now[:alert] = '単語を３つ以上登録してください'
+      render template: "homes/index"
+    end
+    
     # sessionの初期変数
     session[:correct_answer] = 0
     session[:incorrect_answer] = 0
     session[:answer_check] = ''
     session[:answer_num] = 1
-
+    
   end
 
   def create
