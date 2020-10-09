@@ -26,12 +26,13 @@ class QuestionsController < ApplicationController
   end
 
   def update
+
     if @question.valid?
-      flash.now[:alert] = '入力欄が空です'
-      render :edit
-    else
       @question.update(params_question_update)
       redirect_to root_path
+    else
+      flash.now[:alert] = '入力欄が空です'
+      render :edit
     end
   end
 
