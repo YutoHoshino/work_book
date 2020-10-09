@@ -2,7 +2,7 @@ class TestsController < ApplicationController
   def new
     # 問題の変数
     session[:array] = []
-    @questions = Question.all.sample(100)
+    @questions = Question.all.sample(20)
     @description = [@questions[0],@questions[1],@questions[2]]
     @question = @description[1]
     
@@ -20,16 +20,17 @@ class TestsController < ApplicationController
   end
 
   def create
+    params_question = 
+    
     # 問題のIDと解答のID(params)
     params_correct = (params[:correct_question]).delete("{:value=>}").to_i
     params_question = (params[:question]).delete("{:value=>}").to_i
-
+    
     # session配列にIDの番号を入れる
     session[:array] << params_correct
 
     # 一度出たIDを出なくする
     @questions = Question.where.not(id: session[:array])
-    puts @questions.count
     
     
     if @questions.count > 0

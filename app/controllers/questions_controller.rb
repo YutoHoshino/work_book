@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(params_question)
     if @question.save
-      redirect_to root_path
+      redirect_to questions_path
     else
       render :new
     end
@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
 
     if @question.valid?
       @question.update(params_question_update)
-      redirect_to root_path
+      redirect_to questions_path
     else
       flash.now[:alert] = '入力欄が空です'
       render :edit
@@ -38,15 +38,11 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to root_path
+    redirect_to questions_path
   end
 
   def search
     @questions = Question.search(params[:search])
-    if @questions.present?
-      flash.now[:alert] = 'キーワードを入力してください'
-      render :index
-    end
   end
 
 
