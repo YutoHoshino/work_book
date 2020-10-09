@@ -26,6 +26,11 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    
+    @question.attributes = params_question_update
+
+    puts 'ここに表示'
+    puts @question.question
 
     if @question.valid?
       @question.update(params_question_update)
