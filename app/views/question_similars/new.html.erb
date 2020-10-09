@@ -3,8 +3,10 @@
 <%= form_with model: @similar, url: question_question_similars_path, local: true do |f| %>
 
 <div class="form-group">
-  <%= f.label :類義語登録 %><br>
-  <%= f.text_field :similar_word, class:"form-control" %>
+  <div class="similar_add">
+    <%= f.label :類義語登録 %><br>
+    <%= f.text_field :similar_word, class:"form-control" %>
+  </div>
 </div>
 
 <div class="form-group">

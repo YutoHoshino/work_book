@@ -26,5 +26,4 @@ class QuestionSimilarsController < ApplicationController
   def params_question_similar
     params.require(:question_similar).permit(:similar_word).merge(question_id: params[:question_id])
   end
-
 end
