@@ -1,13 +1,5 @@
 <h1>Ranking</h1>
 
-  <% if session[:correct_answer].present? or session[:answer_rate].present?%>
-    <p>
-    お疲れ様でした!<br>
-    あなたの成績は、5問中<%= session[:correct_answer]%>問正解 
-    正解率<%= session[:answer_rate] %>%でした
-    </p>
-  <% end %>
-
 <table class="table">
   <tr>
     <th scope="col">順位</th>

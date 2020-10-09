@@ -91,6 +91,12 @@ class TestsController < ApplicationController
 
   def rank
     @rank = User.order(highest_rate: "DESC")
+    if session[:correct_answer].present? or session[:answer_rate].present?
+      flash.now[:notice] = "お疲れ様でした!
+      あなたの成績は、5問中#{session[:correct_answer]}問正解 
+      正解率#{session[:answer_rate]}%でした
+      あなたの順位は#{j}位"
+    end
   end
 
 end
