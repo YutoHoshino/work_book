@@ -17,15 +17,16 @@ class TestsController < ApplicationController
     session[:answer_check] = ''
     session[:answer_num] = 1
     
+
   end
 
   def create
-    params_question = 
-    
+
     # 問題のIDと解答のID(params)
     params_correct = (params[:correct_question]).delete("{:value=>}").to_i
+
     params_question = (params[:question]).delete("{:value=>}").to_i
-    
+
     # session配列にIDの番号を入れる
     session[:array] << params_correct
 
@@ -75,7 +76,8 @@ class TestsController < ApplicationController
       session[:answer_rate] = session[:correct_answer] * 100 / 5
       rate = session[:answer_rate]
       highest = current_user.highest_rate
-      
+
+
       # ハイスコア更新
       if highest.nil? or highest < rate  
         current_user.update_attribute(:highest_rate, rate)
@@ -83,24 +85,46 @@ class TestsController < ApplicationController
 
       redirect_to rank_tests_path
     end
-
   end
 
-  def update
-  end
+
 
   def rank
-    @lastRank = 0
-    session[:j] = 1
-    @rank = User.order(highest_rate: "DESC")
-    if session[:correct_answer].present? or session[:answer_rate].present?
-      flash.now[:notice] = "お疲れ様でした!
-      あなたの成績は、5問中#{session[:correct_answer]}問正解 
-      正解率#{session[:answer_rate]}%でした
-      あなたの順位は#{session[:j]}位"
+
+    # ユーザー一覧を表示するための変数
+    @rank = User.order('highest_rate desc').where.not(highest_rate: 0)
+
+    # @rank配列からheighest_rateのみのものをranksに入れる
+    ranks = @rank.map(&:highest_rate)
+    
+    # ranksにその時のユーザーの回答を入れ、値の大きい順番に並べる
+    @ranks = (ranks << session[:answer_rate]).sort.reverse
+
+    rate_array = []
+    rank_array = []
+
+    @ranks.each.with_index(1) do |rank, index|
+
+      if rate_array.last == rank
+        index = rank_array.last 
+      else 
+        index = rank_array.count + 1 
+      end 
+      rate_array << rank
+      rank_array << index 
+
+      # フラッシュメッセージ
+      if session[:correct_answer].present? && session[:answer_rate].present?
+  
+        flash.now[:notice] = "お疲れ様でした!
+        あなたの成績は、5問中#{session[:correct_answer]}問正解！！
+        正解率#{session[:answer_rate]}%で、あなたの順位は#{index}位です"
+  
+      end
     end
+  
+
 
 
   end
-
 end

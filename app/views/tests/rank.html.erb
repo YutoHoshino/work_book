@@ -7,24 +7,26 @@
     <th scope="col">正解率</th>
   </tr>
 
-  <% @rank.each.with_index(1) do |rank, i|%>
+
+  <% rate_array = [] %>
+  <% rank_array = [] %>
+
+
+  <% @rank.each.with_index(1) do |rank, index|%>
+
+    <% if rate_array.last == rank.highest_rate %>
+      <% index = rank_array.last %>
+    <% else %>
+      <% index = rank_array.count + 1 %>
+    <% end %>
+
+    <% rate_array << rank.highest_rate %>
+    <% rank_array << index %>
     <tr>
       <% if rank.highest_rate.present? %>
-    
-        <% if i == 1 %>
-          <th class="<%= "current" if current_user == rank %>" scope="row"><%=  session[:j]%>位</th>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
-          <td class="<%= "current" if current_user == rank %>"><%= @lastRank= rank.highest_rate %>%</td>
-        <% elsif rank.highest_rate !=  @lastRank %>
-          <%  session[:j]= i %>
-          <th class="<%= "current" if current_user == rank %>" scope="row"><%=  session[:j]%>位</th>
+          <th class="<%= "current" if current_user == rank %>" scope="row"><%= index %>位</th>
           <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
           <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
-        <% else %>
-          <th class="<%= "current" if current_user == rank %>" scope="row"><%=  session[:j]%>位</th>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
-        <% end %>
       <% end %>
     </tr>
   <% end %>
