@@ -105,28 +105,30 @@ class TestsController < ApplicationController
     ranks = @rank.map(&:highest_rate)
     
     # ranksにその時のユーザーの回答を入れ、値の大きい順番に並べる
-    @ranks = (ranks << session[:answer_rate]).sort.reverse
+    if session[:answer_rate].present?
+      @ranks = (ranks << session[:answer_rate]).sort.reverse
 
-    rate_array = []
-    rank_array = []
+      rate_array = []
+      rank_array = []
 
-    @ranks.each.with_index(1) do |rank, index|
+      @ranks.each.with_index(1) do |rank, index|
 
-      if rate_array.last == rank
-        index = rank_array.last 
-      else 
-        index = rank_array.count + 1 
-      end 
-      rate_array << rank
-      rank_array << index 
+        if rate_array.last == rank
+          index = rank_array.last 
+        else 
+          index = rank_array.count + 1 
+        end 
+        rate_array << rank
+        rank_array << index 
 
-      # フラッシュメッセージ
-      if session[:correct_answer].present? && session[:answer_rate].present?
-  
-        flash.now[:notice] = "お疲れ様でした!
-        あなたの成績は、5問中#{session[:correct_answer]}問正解！！
-        正解率#{session[:answer_rate]}%で、あなたの順位は#{index}位です"
-  
+        # フラッシュメッセージ
+        if session[:correct_answer].present? && session[:answer_rate].present?
+    
+          flash.now[:notice] = "お疲れ様でした!
+          あなたの成績は、5問中#{session[:correct_answer]}問正解！！
+          正解率#{session[:answer_rate]}%で、あなたの順位は#{index}位です"
+    
+        end
       end
     end
   
