@@ -20,8 +20,8 @@
 <div class="form-group">
   <h5>解答</h5>
   <% @description.shuffle.each do |descript|%>
-  <%= radio_button_tag :question, value: descript.id, class: 'radio_answer' %>
-  <%= descript.description %><br>
+    <%= radio_button_tag :question, value: descript.id, class: 'radio_answer'%>
+    <%= descript.description %><br>
   <% end %>
 </div>
 

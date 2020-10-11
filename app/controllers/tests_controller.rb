@@ -17,15 +17,22 @@ class TestsController < ApplicationController
     session[:answer_check] = ''
     session[:answer_num] = 1
     
-
   end
 
   def create
 
+    puts 'ここに表示されます'
+    puts (params[:question]).nil?
+
+
+    if (params[:question]).nil?
+      params_question = 3
+    else
+      params_question = (params[:question]).delete("{:value=>}").to_i
+    end
+
     # 問題のIDと解答のID(params)
     params_correct = (params[:correct_question]).delete("{:value=>}").to_i
-
-    params_question = (params[:question]).delete("{:value=>}").to_i
 
     # session配列にIDの番号を入れる
     session[:array] << params_correct
