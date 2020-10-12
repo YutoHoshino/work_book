@@ -98,42 +98,30 @@ class TestsController < ApplicationController
 
   def rank
 
-    # ユーザー一覧を表示するための変数
-    @rank = User.order('highest_rate desc').where.not(highest_rate: 0)
+    @rank = User.order(highest_rate: "DESC")
+    ranked_scores = @rank.map(&:highest_rate)
 
-    # @rank配列からheighest_rateのみのものをranksに入れる
-    ranks = @rank.map(&:highest_rate)
-    
-    # ranksにその時のユーザーの回答を入れ、値の大きい順番に並べる
-    if session[:answer_rate].present?
-      @ranks = (ranks << session[:answer_rate]).sort.reverse
+    #ハイスコアのみ取得
+    ranked_scores = (ranked_scores << session[:answer_rate]).sort.reverse
 
-      rate_array = []
-      rank_array = []
-
-      @ranks.each.with_index(1) do |rank, index|
-
-        if rate_array.last == rank
-          index = rank_array.last 
-        else 
-          index = rank_array.count + 1 
-        end 
-        rate_array << rank
-        rank_array << index 
-
-        # フラッシュメッセージ
-        if session[:correct_answer].present? && session[:answer_rate].present?
-    
-          flash.now[:notice] = "お疲れ様でした!
-          あなたの成績は、5問中#{session[:correct_answer]}問正解！！
-          正解率#{session[:answer_rate]}%で、あなたの順位は#{index}位です"
-    
-        end
+    if session[:answer_rate] == current_user.highest_rate
+      @your_rank = @rank.index(current_user) + 1
+      if current_user.highest_rate ==@rank[@your_rank - 2].highest_rate
+        rates = @rank.map { |n| n.highest_rate }
+        @your_rank = rates.index(current_user.highest_rate) + 1
       end
+    else
+      @your_rank = ranked_scores.index(session[:answer_rate]) + 1
     end
-  
 
+    # フラッシュメッセージ
+    if session[:correct_answer].present? && session[:answer_rate].present?
 
+      flash.now[:notice] = "お疲れ様でした!
+      あなたの成績は、5問中#{session[:correct_answer]}問正解！！
+      正解率#{session[:answer_rate]}%で、あなたの順位は#{@your_rank}位です"
+
+    end
 
   end
 end
