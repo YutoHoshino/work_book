@@ -1,32 +1,3 @@
+<%= render 'layouts/error_messages', model: @question %>
 <h3>単語修正</h3>
-<%= form_with model: @question, local: true do |f| %>
-
-<div class="form-group">
-  <%= f.label :登録する単語 %><br>
-  <%= f.text_field :question, class:"form-control" %>
-</div>
-
-<div class="form-group">
-  <%= f.label :単語の説明 %><br>
-  <%= f.text_area :description, class:"form-control" %>
-</div>
-
-<div class="form-group form_similar">
-  <%= f.label :類義語の登録 %>
-  <%= f.fields_for :question_similars do |i| %>
-    <div data-index="<%= i.index %>" class="js-field_group">
-      <%= i.text_field :similar_word, class:"form-control js_file" %><br>
-    </div>
-  <% end %>
-  <%= link_to "＋類義語を追加する", new_question_question_similar_path(@question.id), class:"similar-add"%>
-</div>
-
-<div class="form-group">
-  <%= f.submit "単語修正", class:"btn btn-primary"%>
-</div>
-
-<% end %>
-
-<div>
-  <%= link_to "戻る", questions_path%>
-</div>
+<%= render 'form', question: @question %>

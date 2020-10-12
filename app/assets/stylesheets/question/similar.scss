@@ -1,9 +1,9 @@
 // 追加ボタン
 .add-to {
   color: #fff;
-  width: 100px;
   text-align: center;
   background: rgb(218, 99, 52);
+  padding: 5px;
   font-style: bold;
   border-radius: 5px;
   &:hover {
@@ -11,14 +11,7 @@
   }
 }
 
-// 追加するlink
+// 削除するlink
 .similar-add {
   font-size: 15px;
-}
-
-.new-add {
-  background:rgb(52, 105, 218);
-  color: #fff;
-  padding: 5px;
-  border-radius: 5px;
 }

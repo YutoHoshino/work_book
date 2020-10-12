@@ -56,3 +56,4 @@ gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'turbolinks', '~> 5'
+gem 'cocoon'
