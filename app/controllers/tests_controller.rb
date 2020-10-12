@@ -99,27 +99,19 @@ class TestsController < ApplicationController
   def rank
 
     @rank = User.order(highest_rate: "DESC")
-    ranked_scores = @rank.map(&:highest_rate)
+    puts @rank.index(current_user)
+    only_ranks = @rank.map(&:highest_rate)
 
     #ハイスコアのみ取得
-    ranked_scores = (ranked_scores << session[:answer_rate]).sort.reverse
-
-    if session[:answer_rate] == current_user.highest_rate
-      @your_rank = @rank.index(current_user) + 1
-      if current_user.highest_rate ==@rank[@your_rank - 2].highest_rate
-        rates = @rank.map { |n| n.highest_rate }
-        @your_rank = rates.index(current_user.highest_rate) + 1
-      end
-    else
-      @your_rank = ranked_scores.index(session[:answer_rate]) + 1
-    end
+    only_ranks = (only_ranks << session[:answer_rate]).sort.reverse
+    @current_rank = only_ranks.index(session[:answer_rate]) + 1
 
     # フラッシュメッセージ
     if session[:correct_answer].present? && session[:answer_rate].present?
 
       flash.now[:notice] = "お疲れ様でした!
       あなたの成績は、5問中#{session[:correct_answer]}問正解！！
-      正解率#{session[:answer_rate]}%で、あなたの順位は#{@your_rank}位です"
+      正解率#{session[:answer_rate]}%で、あなたの順位は#{@current_rank}位です"
 
     end
 
