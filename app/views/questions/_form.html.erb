@@ -1,0 +1,32 @@
+
+<%= form_with(model: question, local: true) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :question, '単語' %>
+    <%= f.text_field :question, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, '単語の説明' %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="question_similar_form">
+    <%= f.label :similar_word, '類義語' %>
+    <%= f.fields_for :question_similars do |f| %>
+      <%= render 'question_similar_fields', f: f %>      
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association "＋追加", f, :question_similars, class:"add-to" %></p>
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit '作成', class: 'btn btn-primary' %>
+  </div>
+
+<% end %>
+
+<div>
+  <%= link_to "戻る", questions_path%>
+</div>

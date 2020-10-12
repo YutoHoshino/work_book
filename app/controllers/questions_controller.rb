@@ -7,15 +7,20 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @question.question_similars.new
+    @question.question_similars.build
   end
 
   def create
     @question = Question.new(params_question)
-    if @question.save
-      redirect_to root_path
-    else
-      render :new
+
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @question, notice: '単語を登録しました' }
+        format.json { render :show, status: :created, location: @question }
+      else
+        format.html { render :new }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -26,13 +31,22 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question.update(params_question)
-    redirect_to root_path
+
+    respond_to do |format|
+      if @question.update(params_question)
+        format.html { redirect_to @question, notice: '更新しました' }
+        format.json { render :show, status: :ok, location: @question }
+      else
+        format.html { render :edit }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   def destroy
     @question.destroy
-    redirect_to root_path
+    redirect_to questions_path
   end
 
   def search
@@ -43,7 +57,7 @@ class QuestionsController < ApplicationController
   private
 
   def params_question
-    params.require(:question).permit(:question, :description, question_similars_attributes: [:similar_word])
+    params.require(:question).permit(:question, :description, question_similars_attributes: [:id, :similar_word, :_destroy])
   end
 
   def set_question

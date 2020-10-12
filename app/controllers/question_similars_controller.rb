@@ -8,7 +8,7 @@ class QuestionSimilarsController < ApplicationController
     @similar = QuestionSimilar.new(params_question_similar)
 
     if @similar.save
-      redirect_to root_path
+      redirect_to edit_question_path(@similar.question)
     else
       render :new
     end
@@ -26,5 +26,4 @@ class QuestionSimilarsController < ApplicationController
   def params_question_similar
     params.require(:question_similar).permit(:similar_word).merge(question_id: params[:question_id])
   end
-
 end

@@ -1,34 +1,32 @@
-<h1>単語帳</h1>
+<h3>単語帳問題</h3>
+
 <%= form_tag(url_for(:action => 'create'), :remote => true) do %>
 
-<h3>問題:<span>第<%= session[:answer_num] %>問</span></h3>
-
+<div class="form-group">
+  <h5>問題:<span>第<%= session[:answer_num] %>問</span></h5>
   <div class="question">
     <%= @question.question %>
   </div>
-
-    <%= hidden_field_tag :correct_question, value: @question.id %>
-
-
-<h6>[類義語]</h6>
-
-  <% @question.question_similars.each do |similar|%>
-    <div calss="similar_word"><%= similar.similar_word%></div>
-  <% end %>
-
-<h3>解答</h3>
-
-  <% @descriptions.each do |descript|%>
-  <%= radio_button_tag :question, value: descript.id, class: 'radio_answer' %>
-  <%= descript.description %><br>
-  <% end %>
-
-  <%= submit_tag "送信", class:'form__submit js-submit' %>
-<% end %>
-
-
-<div class="test_area">
-<div><%= session[:answer_check] %></div>
-<div><%= session[:correct_answer]   %></div>
-<div><%= session[:incorrect_answer] %></div>
+  <%= hidden_field_tag :correct_question, value: @question.id %>
 </div>
+
+<div class="form-group">
+  <h5>類義語</h5>
+  <% @question.question_similars.each do |similar|%>
+    <div calss="similar_word"><%= similar.similar_word %></div>
+  <% end %>
+</div>
+
+<div class="form-group">
+  <h5>解答</h5>
+  <% @description.shuffle.each do |descript|%>
+    <%= radio_button_tag :question, value: descript.id, class: 'radio_answer'%>
+    <%= descript.description %><br>
+  <% end %>
+</div>
+
+<div class="form-group">
+  <%= submit_tag "解答する", class:'form__submit js-submit btn btn-primary' %>
+</div>
+
+<% end %>

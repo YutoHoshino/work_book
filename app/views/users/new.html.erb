@@ -1,25 +1,29 @@
-<h1>ユーザー作成画面</h1>
-<%= render 'layouts/error_messages', model:  @user %>
+<%= render 'layouts/error_messages', model: @user %>
+
+<h3>ユーザー作成画面</h3>
 <%= form_with model: @user, local: true do |f| %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class:"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, class:"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, class:"form-control" %>
   </div>
 
-  <div>
-    <%= f.submit "sign up"%>
+  <div class="form-group">
+    <%= f.submit "新規作成", class:"btn btn-primary"%>
   </div>
-  <%= link_to "login", login_path %>
+
+  <div class="form-group">
+  <%= link_to "ログインページ", login_path %>
+  <div>
 
 <% end %>

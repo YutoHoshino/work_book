@@ -11,11 +11,14 @@
   </head>
 
   <body>
-    <%= notice %>
-    <%= alert %>
     <div class="container"> 
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-warning"<%= message_type %>>
+        <%= message %>
+      </div>
+    <% end %>
       <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
     </div>
+
   </body>
 </html>

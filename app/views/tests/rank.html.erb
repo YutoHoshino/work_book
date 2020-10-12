@@ -1,39 +1,32 @@
 <h1>Ranking</h1>
 
-  <% if session[:correct_answer].present? or session[:answer_rate].present?%>
-    <p>
-    お疲れ様でした!<br>
-    あなたの成績は、5問中<%= session[:correct_answer]%>問正解 
-    正解率<%= session[:answer_rate] %>%でした
-    </p>
-  <% end %>
-
 <table class="table">
   <tr>
     <th scope="col">順位</th>
     <th scope="col">名前</th>
     <th scope="col">正解率</th>
   </tr>
-    <% lastRank = 0%>
-    <% j = 1 %>
-  <% @rank.each.with_index(1) do |rank, i|%>
+
+
+  <% rate_array = [] %>
+  <% rank_array = [] %>
+
+
+  <% @rank.each.with_index(1) do |rank, index|%>
+
+    <% if rate_array.last == rank.highest_rate %>
+      <% index = rank_array.last %>
+    <% else %>
+      <% index = rank_array.count + 1 %>
+    <% end %>
+
+    <% rate_array << rank.highest_rate %>
+    <% rank_array << index %>
     <tr>
       <% if rank.highest_rate.present? %>
-    
-        <% if i == 1 %>
-          <th class="<%= "current" if current_user == rank %>" scope="row"><%= j %>位</th>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
-          <td class="<%= "current" if current_user == rank %>"><%= lastRank= rank.highest_rate %>%</td>
-        <% elsif rank.highest_rate !=  lastRank %>
-          <% j = i %>
-          <th class="<%= "current" if current_user == rank %>" scope="row"><%= j %>位</th>
+          <th class="<%= "current" if current_user == rank %>" scope="row"><%= index %>位</th>
           <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
           <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
-        <% else %>
-          <th class="<%= "current" if current_user == rank %>" scope="row"><%= j %>位</th>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
-        <% end %>
       <% end %>
     </tr>
   <% end %>
